@@ -39,7 +39,7 @@ private_key             = <location of local private key>
 A few things to consider:
 
 - RHEL 9 is generally [not supported by NVIDIA through containers](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/install-guide.html#container-runtimes).
-- RHEL (8.6 breaks on repo)[https://nvidia.github.io/libnvidia-container/rhel8.5/libnvidia-container.repo]. (8.5 is preferred)[https://nvidia.github.io/libnvidia-container/rhel8.5/libnvidia-container.repo].
+- RHEL [8.6 breaks on repo](https://nvidia.github.io/libnvidia-container/rhel8.5/libnvidia-container.repo). [8.5 is preferred](https://nvidia.github.io/libnvidia-container/rhel8.5/libnvidia-container.repo).
 
 # Running the demo
 
