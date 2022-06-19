@@ -1,0 +1,53 @@
+- name: Complete installation of ML libraries
+  hosts: rhel_ml_hosts
+  remote_user: ec2-user 
+  tasks:
+    - name: Add NVIDIA Repo
+      command: sudo dnf config-manager --add-repo https://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo
+      become: yes
+
+    - name: Install kernel packages
+      shell: sudo dnf install -y kernel-devel-$(uname -r) kernel-headers-$(uname -r)
+      become: yes
+
+    - name: Install NVIDIA drivers
+      dnf:
+        name: ['nvidia-driver',  'nvidia-settings']
+        state: latest
+      become: yes
+
+    - name: Install CUDA drivers
+      dnf:
+        name: 'cuda-driver'
+        state: latest
+      become: yes    
+
+    - name: Restart the machine
+      reboot:
+      become: yes
+
+    - name: Install container-tools
+      command: dnf module install -y container-tools
+      become: yes
+
+    - name: Add libnvidia to package repos
+      ansible.builtin.shell: distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && curl -s -L https://nvidia.github.io/libnvidia-container/$distribution/libnvidia-container.repo | sudo tee /etc/yum.repos.d/nvidia-container-toolkit.repo
+      become: yes
+
+    - name: Clean
+      command: dnf clean expire-cache 
+      become: yes
+
+    - name: Install nvidia-container-toolkit
+      dnf:
+        name: 'nvidia-container-toolkit'
+        state: latest
+      become: yes
+
+    - name: Configure RHEL control groups
+      command: sed -i 's/^#no-cgroups = false/no-cgroups = true/;' /etc/nvidia-container-runtime/config.toml
+      become: yes
+
+    - name: Restart the machine (again)
+      reboot:
+      become: yes

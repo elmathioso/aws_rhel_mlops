@@ -1,0 +1,2 @@
+# podman run --security-opt=label=disable --hooks-dir=/usr/share/containers/oci/hooks.d/ --cap-add SYS_ADMIN tensorflow/tensorflow:latest-gpu python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
+podman run --security-opt=label=disable --hooks-dir=/usr/share/containers/oci/hooks.d/ tensorflow/tensorflow:latest-gpu python3 -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"

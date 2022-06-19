@@ -1,0 +1,9 @@
+terraform.tfvars
+*lock.hcl
+*lock.info
+*.backup
+*.bak
+terraform.exe
+.terraform*
+terraform*
+run_ansible.sh
